@@ -14,9 +14,9 @@ export class SA_LineaMastService {
         private readonly repository: Repository<SA_LineaMast>,
     ) { }
 
-    async create(createClienteDto: CreateLineaDto): Promise<SA_LineaMast> {
-        const cliente = this.repository.create(createClienteDto);
-        return this.repository.save(cliente);
+    async create(createDto: CreateLineaDto): Promise<SA_LineaMast> {
+        const data = this.repository.create(createDto);
+        return this.repository.save(data);
     }
 
     async findAll(): Promise<SA_LineaMast[]> {
@@ -29,14 +29,14 @@ export class SA_LineaMastService {
         });
     }
 
-    async update(id: string, updateClienteDto: UpdateLineaDto): Promise<SA_LineaMast> {
+    async update(id: string, updateDto: UpdateLineaDto): Promise<SA_LineaMast> {
         const client = await this.repository.findOne({ where: { id_linea: id } });
 
         if (!client) {
             throw new Error('Client not found');
         }
 
-        await this.repository.update(id, updateClienteDto);
+        await this.repository.update(id, updateDto);
         return this.repository.findOne({ where: { id_linea: id } });
     }
 

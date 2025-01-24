@@ -1,18 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
 export class CreateLineaDto {
     @ApiProperty()
     nombre: string;
 
     @ApiProperty()
-    email: string;
+    @IsString()
+    @IsNotEmpty()
+    @IsUUID()
+    id_cliente: string;
 
-    @ApiProperty()
-    telefono: string;
-
-    @ApiProperty()
-    direccion: string;
-
-    @ApiProperty()
-    fecha_creacion: string;
+  
 }

@@ -29,7 +29,7 @@ export class SA_ClienteMast {
     fecha_creacion: string;
 
     // --- ESTABLECER CONEXION CON LAS LINEAS QUE PUEDE TENER CADA CLIENTE
-    @ApiProperty({ type: () => SA_LineaMast, isArray: true })
+    @ApiProperty()
     @OneToMany(() => SA_LineaMast, (linea) => linea.cliente)
     lineas: SA_LineaMast[];
 }

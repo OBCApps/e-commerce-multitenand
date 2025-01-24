@@ -12,10 +12,13 @@ export class SA_LineaMast {
 
     // --- ESTABLECER CONEXION CON EL CLIENTE -> LINEA (UNO A MUCHOS)
     @ApiProperty()
-    @ManyToOne(() => SA_ClienteMast, (connect) => connect.lineas, { onDelete: 'CASCADE', cascade: true })
+    @ManyToOne(() => SA_ClienteMast, (connect) => connect.lineas, { onDelete: 'CASCADE', onUpdate: 'CASCADE', cascade: true })
     @JoinColumn({ name: 'id_cliente' })
     cliente: SA_ClienteMast;
 
+    /* @ApiProperty()
+    @Column({ type: 'uuid', nullable: false })
+    id_cliente: string; */
 
     @ApiProperty()
     @Column({ type: 'text', nullable: false })

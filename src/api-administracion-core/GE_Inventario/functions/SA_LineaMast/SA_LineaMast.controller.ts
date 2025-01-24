@@ -15,30 +15,30 @@ export class SA_LineaMastController {
     @Get('/all')
     public async getAll(): Promise<any> {
         try {
-            const clients = await this.service.findAll();
-            return { status: 200, data: clients };
+            const data = await this.service.findAll();
+            return { status: 200, data: data };
         } catch (error) {
-            return { status: 500, message: 'Error retrieving clients', error };
+            return { status: 500, message: 'Error retrieving ', error };
         }
     }
 
     @Post('/register')
     public async create(@Body() createDto: CreateLineaDto): Promise<any> {
         try {
-            const createdClient = await this.service.create(createDto);
-            return { status: 201, data: createdClient };
+            const createdDto = await this.service.create(createDto);
+            return { status: 201, data: createdDto };
         } catch (error) {
-            throw new Error('Error creating client');
+            throw new Error('Error creating ');
         }
     }
 
 
     @Patch('/update')
-    public async updateClient(@Body() clientUpdates: UpdateLineaDto): Promise<any> {
+    public async update(@Body() updateDto: UpdateLineaDto): Promise<any> {
         try {
-            const updatedClient = await this.service.update(clientUpdates.id_cliente, clientUpdates);
-            if (updatedClient) {
-                return { status: 200, data: updatedClient };
+            const updatedDto = await this.service.update(updateDto.id_linea, updateDto);
+            if (updatedDto) {
+                return { status: 200, data: updatedDto };
             } else {
                 return { status: 404, message: 'Client not found' };
             }
@@ -50,7 +50,7 @@ export class SA_LineaMastController {
 
 
     @Delete('/delete/:id')
-    public async deleteClient(@Param('id') id: string): Promise<any> {
+    public async delete(@Param('id') id: string): Promise<any> {
         try {
 
             await this.service.remove(id);
