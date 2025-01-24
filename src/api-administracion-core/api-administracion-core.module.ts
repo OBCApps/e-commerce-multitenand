@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { SaUnidadNegocioMastModule } from './sa_unidad-negocio-mast/sa_unidad-negocio-mast.module';
+import { SA_ClienteMastModule } from './SA_ClienteMast/functions/SA_ClienteMast.module';
+
 
 @Module({
-  imports: [SaUnidadNegocioMastModule]
+  imports: [SA_ClienteMastModule]
 })
 export class ApiAdministracionCoreModule {}
