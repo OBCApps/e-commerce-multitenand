@@ -15,7 +15,9 @@ export class SA_CategoriaMast {
     @ManyToOne(() => SA_LineaMast, (connect) => connect.categorias, { onDelete: 'CASCADE', cascade: true })
     @JoinColumn({ name: 'id_linea' })
     linea: SA_LineaMast;
-
+    @ApiProperty()
+    @Column({ type: 'uuid', nullable: false })
+    id_linea: string;
 
     @ApiProperty()
     @Column({ type: 'text', nullable: false })
