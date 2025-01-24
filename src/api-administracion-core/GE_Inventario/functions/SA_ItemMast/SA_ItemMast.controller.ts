@@ -1,16 +1,16 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { SA_CategoriaMastService } from './SA_CategoriaMast.service';
-import { CreateCategoriaDto } from '../../domains/CreateCategoriaDto';
-import { UpdateCategoriaDto } from '../../domains/UpdateCategoriaDto';
+import { SA_ItemMastService } from './SA_ItemMast.service';
+import { CreateItemDto } from '../../domains/CreateItemDto';
+import { UpdateItemDto } from '../../domains/UpdateItemDto';
 
 
-@ApiTags('categoria-mast')
-@Controller('administrate/sa_categoriamast/')
-export class SA_CategoriaMastController {
+@ApiTags('item-mast')
+@Controller('administrate/sa_itemmast/')
+export class SA_ItemMastController {
 
 
-    constructor(private readonly service: SA_CategoriaMastService) { }
+    constructor(private readonly service: SA_ItemMastService) { }
 
     @Get('/all')
     public async getAll(): Promise<any> {
@@ -23,7 +23,7 @@ export class SA_CategoriaMastController {
     }
 
     @Post('/register')
-    public async create(@Body() createDto: CreateCategoriaDto): Promise<any> {
+    public async create(@Body() createDto: CreateItemDto): Promise<any> {
         try {
             const createdDto = await this.service.create(createDto);
             return { status: 201, data: createdDto };
@@ -34,9 +34,9 @@ export class SA_CategoriaMastController {
 
 
     @Patch('/update')
-    public async update(@Body() updateDto: UpdateCategoriaDto): Promise<any> {
+    public async update(@Body() updateDto: UpdateItemDto): Promise<any> {
         try {
-            const updatedDto = await this.service.update(updateDto.id_categoria, updateDto);
+            const updatedDto = await this.service.update(updateDto.id_item, updateDto);
             if (updatedDto) {
                 return { status: 200, data: updatedDto };
             } else {

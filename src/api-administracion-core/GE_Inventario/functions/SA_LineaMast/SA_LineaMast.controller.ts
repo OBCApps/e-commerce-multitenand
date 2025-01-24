@@ -40,10 +40,10 @@ export class SA_LineaMastController {
             if (updatedDto) {
                 return { status: 200, data: updatedDto };
             } else {
-                return { status: 404, message: 'Client not found' };
+                return { status: 404, message: ' not found' };
             }
         } catch (error) {
-            throw new Error(error.message || 'Error updating client');
+            throw new Error(error.message || 'Error updating ');
         }
     }
 
@@ -54,12 +54,12 @@ export class SA_LineaMastController {
         try {
 
             await this.service.remove(id);
-            return { status: 200, message: 'Client deleted successfully' };
+            return { status: 200, message: ' deleted successfully' };
         } catch (error) {
-            if (error.message === 'Client not found') {
-                return { status: 404, message: 'Client not found' };
+            if (error.message === ' not found') {
+                return { status: 404, message: ' not found' };
             } else {
-                throw new Error('Error deleting client');
+                throw new Error('Error deleting ');
             }
         }
     }

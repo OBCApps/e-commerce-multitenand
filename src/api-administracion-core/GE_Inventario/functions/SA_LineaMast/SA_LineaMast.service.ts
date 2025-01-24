@@ -30,10 +30,10 @@ export class SA_LineaMastService {
     }
 
     async update(id: string, updateDto: UpdateLineaDto): Promise<SA_LineaMast> {
-        const client = await this.repository.findOne({ where: { id_linea: id } });
+        const data = await this.repository.findOne({ where: { id_linea: id } });
 
-        if (!client) {
-            throw new Error('Client not found');
+        if (!data) {
+            throw new Error(' not found');
         }
 
         await this.repository.update(id, updateDto);
