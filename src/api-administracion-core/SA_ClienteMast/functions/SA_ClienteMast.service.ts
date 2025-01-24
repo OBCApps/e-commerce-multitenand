@@ -11,37 +11,37 @@ import { UpdateClienteDto } from '../domains/UpdateClienteDto';
 export class SA_ClienteMastService {
     constructor(
         @InjectRepository(SA_ClienteMast)
-        private readonly clienteRepository: Repository<SA_ClienteMast>,
+        private readonly repository: Repository<SA_ClienteMast>,
     ) { }
 
     async create(createClienteDto: CreateClienteDto): Promise<SA_ClienteMast> {
-        const cliente = this.clienteRepository.create(createClienteDto);
-        return this.clienteRepository.save(cliente);
+        const cliente = this.repository.create(createClienteDto);
+        return this.repository.save(cliente);
     }
 
     async findAll(): Promise<SA_ClienteMast[]> {
-        return this.clienteRepository.find();
+        return this.repository.find();
     }
 
     async findOne(id: string): Promise<SA_ClienteMast> {
-        return this.clienteRepository.findOne({
+        return this.repository.findOne({
             where: { id_cliente: id },
         });
     }
 
     async update(id: string, updateClienteDto: UpdateClienteDto): Promise<SA_ClienteMast> {
-        const client = await this.clienteRepository.findOne({ where: { id_cliente: id } });
+        const client = await this.repository.findOne({ where: { id_cliente: id } });
 
         if (!client) {
             throw new Error('Client not found');
         }
 
-        await this.clienteRepository.update(id, updateClienteDto);
-        return this.clienteRepository.findOne({ where: { id_cliente: id } });
+        await this.repository.update(id, updateClienteDto);
+        return this.repository.findOne({ where: { id_cliente: id } });
     }
 
 
     async remove(id: string): Promise<void> {
-        await this.clienteRepository.delete(id);
+        await this.repository.delete(id);
     }
 }

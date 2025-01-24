@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity,  PrimaryGeneratedColumn } from 'typeorm';
+import { SA_LineaMast } from 'src/api-administracion-core/GE_Inventario/entities/SA_LineaMast.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('SA_ClienteMast')
 export class SA_ClienteMast {
@@ -27,5 +28,8 @@ export class SA_ClienteMast {
     @Column({ type: 'text', nullable: false })
     fecha_creacion: string;
 
-
+    // --- ESTABLECER CONEXION CON LAS LINEAS QUE PUEDE TENER CADA CLIENTE
+    @ApiProperty({ type: () => SA_LineaMast, isArray: true })
+    @OneToMany(() => SA_LineaMast, (linea) => linea.cliente)
+    lineas: SA_LineaMast[];
 }
