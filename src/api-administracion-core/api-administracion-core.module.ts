@@ -4,6 +4,7 @@ import { SA_LineaMastModule } from './GE_Inventario/functions/SA_LineaMast/SA_Li
 import { SA_CategoriaMastModule } from './GE_Inventario/functions/SA_CategoriaMast/SA_CategoriaMast.module';
 import { SA_ItemMastModule } from './GE_Inventario/functions/SA_ItemMast/SA_ItemMast.module';
 import { SA_SubCategoriaMastModule } from './GE_Inventario/functions/SA_SubCategoriaMast/SA_SubCategoriaMast.module';
+import { LandingPageModule } from './LandingPage/functions/LandingPage/LandingPage.module';
 
 
 
@@ -13,7 +14,8 @@ import { SA_SubCategoriaMastModule } from './GE_Inventario/functions/SA_SubCateg
     SA_LineaMastModule,
     SA_CategoriaMastModule,
     SA_SubCategoriaMastModule,
-    SA_ItemMastModule
+    SA_ItemMastModule,
+    LandingPageModule
   ]
 })
 export class ApiAdministracionCoreModule {}

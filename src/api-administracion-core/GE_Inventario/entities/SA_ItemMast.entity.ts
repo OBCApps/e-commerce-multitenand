@@ -35,11 +35,30 @@ export class SA_ItemMast {
     @ApiProperty()
     @Column({ type: 'uuid', nullable: false })
     id_subcategoria: string;
-    
+
     @ApiProperty()
     @Column({ type: 'text', nullable: false })
     nombre: string;
 
+    @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: '0' })
+    precio: string;
+
+    @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: 'S' })
+    disponibilidad: string;
+
+    @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: 'PEN' })
+    tipoMoneda: string;
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    descripcionProducto: any[];
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    fotos: any[];
 
     // --- ESTABLECER CONEXION CON LAS SUBCATEGORIAS QUE PUEDE TENER CADA CATEGORIA
     @ApiProperty({ type: () => SA_SubCategoriaMast, isArray: true })
