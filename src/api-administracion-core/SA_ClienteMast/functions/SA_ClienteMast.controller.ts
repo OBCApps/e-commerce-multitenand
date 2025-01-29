@@ -22,6 +22,26 @@ export class SA_ClienteMastController {
         }
     }
 
+    @Get('/tenandId/:domain')
+    public async getTenandId(@Param('tenandId') tenandId: string): Promise<any> {
+        try {
+            const data = await this.service.findOne(tenandId);
+            return { status: 200, data: data };
+        } catch (error) {
+            return { status: 500, message: 'Error retrieving ', error };
+        }
+    }
+
+    @Get('/tenandId/config')
+    public async getTenandIdConfig(): Promise<any> {
+        try {
+            const data = await this.service.getTenandIdConfig();
+            return { status: 200, data: data.config };
+        } catch (error) {
+            return { status: 500, message: 'Error retrieving ', error };
+        }
+    }
+
     @Post('/register')
     public async create(@Body() createDto: CreateClienteDto): Promise<any> {
         try {

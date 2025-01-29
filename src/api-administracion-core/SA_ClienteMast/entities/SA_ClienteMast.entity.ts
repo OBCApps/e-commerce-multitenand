@@ -17,12 +17,20 @@ export class SA_ClienteMast {
     email: string;
 
     @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: '' })
+    domain: string;
+
+    @ApiProperty()
     @Column({ type: 'text', nullable: false })
     telefono: string;
 
     @ApiProperty()
     @Column({ type: 'text', nullable: false })
     direccion: string;
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: {} })
+    config: any;
 
     @ApiProperty()
     @Column({ type: 'text', nullable: false })

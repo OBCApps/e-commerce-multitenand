@@ -1,5 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Headers } from '@nestjs/common';
 import { LandingPageService } from './LandingPage.service';
 import { FilterProductDto } from '../../domains/FilterProductDto';
 
@@ -10,6 +10,16 @@ export class LandingPageController {
 
 
     constructor(private readonly service: LandingPageService) { }
+
+    @Get('/getAllLineas')
+    public async getAllLineas(): Promise<any> {
+        try {
+            const data = await this.service.getAllLineas();
+            return { status: 200, data: data };
+        } catch (error) {
+            return { status: 500, message: 'Error retrieving ', error };
+        }
+    }
 
     @Get('/getAllCategories/:id_linea')
     public async getAllCategories(@Param('id_linea') id_linea: string): Promise<any> {

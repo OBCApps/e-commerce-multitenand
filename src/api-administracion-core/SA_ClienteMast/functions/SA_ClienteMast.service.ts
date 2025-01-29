@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SA_ClienteMast } from '../entities/SA_ClienteMast.entity';
@@ -12,6 +12,8 @@ export class SA_ClienteMastService {
     constructor(
         @InjectRepository(SA_ClienteMast)
         private readonly repository: Repository<SA_ClienteMast>,
+
+        @Inject('REQUEST') private readonly request: Request
     ) { }
 
     async create(createClienteDto: CreateClienteDto): Promise<SA_ClienteMast> {
@@ -21,6 +23,12 @@ export class SA_ClienteMastService {
 
     async findAll(): Promise<SA_ClienteMast[]> {
         return this.repository.find();
+    }
+
+    async findByDomain(id: string): Promise<SA_ClienteMast> {
+        return this.repository.findOne({
+            where: { domain: id },
+        });
     }
 
     async findOne(id: string): Promise<SA_ClienteMast> {
@@ -44,4 +52,12 @@ export class SA_ClienteMastService {
     async remove(id: string): Promise<void> {
         await this.repository.delete(id);
     }
+    
+    async getTenandIdConfig(): Promise<SA_ClienteMast> {
+        const tenantId = (this.request as any).tenantId;
+        return this.repository.findOne({ where: { id_cliente: tenantId } });
+
+
+    }
+
 }

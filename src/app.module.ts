@@ -6,6 +6,7 @@ import { ApiAdministracionCoreModule } from './api-administracion-core/api-admin
 import { ApiSeguridadCoreModule } from './api-seguridad-core/api-seguridad-core.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { TenantModule } from './shared/global-components/tenant.module';
 
 @Module({
   imports: [
@@ -25,7 +26,9 @@ import { ConfigModule } from '@nestjs/config';
     }),
     ApiComunCoreModule,
     ApiAdministracionCoreModule,
-    ApiSeguridadCoreModule],
+    ApiSeguridadCoreModule,
+    TenantModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

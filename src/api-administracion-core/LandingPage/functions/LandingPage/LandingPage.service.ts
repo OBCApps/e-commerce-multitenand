@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SA_CategoriaMast } from 'src/api-administracion-core/GE_Inventario/entities/SA_CategoriaMast.entity';
 import { SA_ItemMast } from 'src/api-administracion-core/GE_Inventario/entities/SA_ItemMast.entity';
 import { SA_SubCategoriaMast } from 'src/api-administracion-core/GE_Inventario/entities/SA_SubCategoriaMast.entity';
 import { Like, Repository } from 'typeorm';
 import { FilterProductDto } from '../../domains/FilterProductDto';
+import { SA_LineaMast } from 'src/api-administracion-core/GE_Inventario/entities/SA_LineaMast.entity';
+import { SA_ClienteMast } from 'src/api-administracion-core/SA_ClienteMast/entities/SA_ClienteMast.entity';
 
 
 
@@ -12,6 +14,12 @@ import { FilterProductDto } from '../../domains/FilterProductDto';
 @Injectable()
 export class LandingPageService {
     constructor(
+        @InjectRepository(SA_ClienteMast)
+        private readonly repository_SA_ClienteMast: Repository<SA_ClienteMast>,
+
+        @InjectRepository(SA_LineaMast)
+        private readonly repository_SA_LineaMast: Repository<SA_LineaMast>,
+
         @InjectRepository(SA_CategoriaMast)
         private readonly repository_SA_CategoriaMast: Repository<SA_CategoriaMast>,
 
@@ -20,8 +28,23 @@ export class LandingPageService {
 
         @InjectRepository(SA_ItemMast)
         private readonly repository_SA_ItemMast: Repository<SA_ItemMast>,
+
+        @Inject('REQUEST') private readonly request: Request,
     ) { }
 
+    async getAllLineas(): Promise<SA_LineaMast[]> {
+        const tenantId = (this.request as any).tenantId;
+        return this.repository_SA_LineaMast.find({ where: { id_cliente: tenantId } });
+
+
+    }
+
+    /* async getAllLineas(domain: string): Promise<SA_LineaMast[]> {
+        const cliente = await this.repository_SA_ClienteMast.findOne({ where: { domain: domain } })
+        if (cliente) {
+            return this.repository_SA_LineaMast.find({ where: { id_cliente: cliente.id_cliente } });
+        }
+    } */
 
     async getAllCategories(id_linea: string): Promise<SA_CategoriaMast[]> {
         return this.repository_SA_CategoriaMast.find({ where: { id_linea: id_linea } });
