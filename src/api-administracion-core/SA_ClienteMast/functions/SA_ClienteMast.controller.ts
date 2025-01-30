@@ -22,7 +22,7 @@ export class SA_ClienteMastController {
         }
     }
 
-    @Get('/tenandId/:domain')
+    /* @Get('/tenandId/:domain')
     public async getTenandId(@Param('tenandId') tenandId: string): Promise<any> {
         try {
             const data = await this.service.findOne(tenandId);
@@ -30,7 +30,7 @@ export class SA_ClienteMastController {
         } catch (error) {
             return { status: 500, message: 'Error retrieving ', error };
         }
-    }
+    } */
 
     @Get('/tenandId/config')
     public async getTenandIdConfig(): Promise<any> {

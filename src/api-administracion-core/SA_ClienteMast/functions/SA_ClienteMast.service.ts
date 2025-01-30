@@ -52,10 +52,13 @@ export class SA_ClienteMastService {
     async remove(id: string): Promise<void> {
         await this.repository.delete(id);
     }
-    
+
     async getTenandIdConfig(): Promise<SA_ClienteMast> {
         const tenantId = (this.request as any).tenantId;
-        return this.repository.findOne({ where: { id_cliente: tenantId } });
+        console.log("tenantId", tenantId);
+        const response = await this.repository.findOne({ where: { id_cliente: tenantId } });
+        console.log("response", response);
+        return response;
 
 
     }
