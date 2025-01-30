@@ -39,12 +39,6 @@ export class LandingPageService {
 
     }
 
-    /* async getAllLineas(domain: string): Promise<SA_LineaMast[]> {
-        const cliente = await this.repository_SA_ClienteMast.findOne({ where: { domain: domain } })
-        if (cliente) {
-            return this.repository_SA_LineaMast.find({ where: { id_cliente: cliente.id_cliente } });
-        }
-    } */
 
     async getAllCategories(id_linea: string): Promise<SA_CategoriaMast[]> {
         return this.repository_SA_CategoriaMast.find({ where: { id_linea: id_linea } });
@@ -55,7 +49,18 @@ export class LandingPageService {
     }
 
     async getAllProducts(filter: FilterProductDto): Promise<SA_ItemMast[]> {
-        return this.repository_SA_ItemMast.find(
+        const tenantId = (this.request as any).tenantId;
+
+        return this.repository_SA_ItemMast.createQueryBuilder('item')
+            .innerJoin('SA_LineaMast', 'linea', 'item.id_linea = linea.id_linea')
+            .where('linea.id_cliente = :tenantId', { tenantId })
+            .andWhere(filter.id_linea ? 'item.id_linea = :id_linea' : '1=1', { id_linea: filter.id_linea })
+            .andWhere(filter.id_categoria ? 'item.id_categoria = :id_categoria' : '1=1', { id_categoria: filter.id_categoria })
+            .andWhere(filter.id_subcategoria ? 'item.id_subcategoria = :id_subcategoria' : '1=1', { id_subcategoria: filter.id_subcategoria })
+            .andWhere(filter.nombre ? 'item.nombre ILIKE :nombre' : '1=1', { nombre: `%${filter.nombre}%` })
+            .getMany();
+
+        /* return this.repository_SA_ItemMast.find(
             {
                 where: {
                     id_linea: filter.id_linea,
@@ -64,6 +69,6 @@ export class LandingPageService {
                     nombre: filter.nombre ? Like(`%${filter.nombre}%`) : undefined,
                 }
             }
-        );
+        ); */
     }
 }
