@@ -59,16 +59,9 @@ export class LandingPageService {
             .andWhere(filter.id_subcategoria ? 'item.id_subcategoria = :id_subcategoria' : '1=1', { id_subcategoria: filter.id_subcategoria })
             .andWhere(filter.nombre ? 'item.nombre ILIKE :nombre' : '1=1', { nombre: `%${filter.nombre}%` })
             .getMany();
+    }
 
-        /* return this.repository_SA_ItemMast.find(
-            {
-                where: {
-                    id_linea: filter.id_linea,
-                    id_categoria: filter.id_categoria,
-                    id_subcategoria: filter.id_subcategoria,
-                    nombre: filter.nombre ? Like(`%${filter.nombre}%`) : undefined,
-                }
-            }
-        ); */
+    async getProductByNameRoute(name_route: string): Promise<SA_ItemMast> {
+        return this.repository_SA_ItemMast.findOne({ where: { name_route: name_route } });
     }
 }

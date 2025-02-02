@@ -51,5 +51,13 @@ export class LandingPageController {
         }
     }
 
-
+    @Get('/getProductByNameRoute/:name_route')
+    public async getProductByNameRoute(@Param('name_route') name_route: string): Promise<any> {
+        try {
+            const data = await this.service.getProductByNameRoute(name_route);
+            return { status: 200, data: data };
+        } catch (error) {
+            return { status: 500, message: 'Error retrieving ', error };
+        }
+    }
 }

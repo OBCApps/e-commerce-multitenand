@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { SA_LineaMast } from "./SA_LineaMast.entity";
 import { SA_CategoriaMast } from "./SA_CategoriaMast.entity";
 import { SA_SubCategoriaMast } from "./SA_SubCategoriaMast.entity";
@@ -40,6 +40,10 @@ export class SA_ItemMast {
     @ApiProperty()
     @Column({ type: 'text', nullable: false, default: '' })
     nombre: string;
+
+    @ApiProperty()
+    @PrimaryColumn({ type: 'text', default: '' })
+    name_route: string;
 
     @ApiProperty()
     @Column({ type: 'text', nullable: false, default: '0' })
