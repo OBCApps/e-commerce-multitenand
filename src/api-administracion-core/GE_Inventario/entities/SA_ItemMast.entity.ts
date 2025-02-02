@@ -36,8 +36,9 @@ export class SA_ItemMast {
     @Column({ type: 'uuid', nullable: false })
     id_subcategoria: string;
 
+    // Características principales de la tabla
     @ApiProperty()
-    @Column({ type: 'text', nullable: false })
+    @Column({ type: 'text', nullable: false, default: '' })
     nombre: string;
 
     @ApiProperty()
@@ -53,12 +54,58 @@ export class SA_ItemMast {
     tipoMoneda: string;
 
     @ApiProperty()
-    @Column({ type: 'jsonb', nullable: true, default: [] })
-    descripcionProducto: any[];
+    @Column({ type: 'text', nullable: false, default: '' })
+    descProductoCorta: string;
+
+    @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: '' })
+    descProductoLarga: string;
+
 
     @ApiProperty()
     @Column({ type: 'jsonb', nullable: true, default: [] })
     fotos: any[];
+
+    // Caracteristicas mescladas - TEC LAPTOP - CELULAR
+
+    @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: '' })
+    nombre_template: string;
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    especificacionesPrincipales: any[];
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    especificacionesSecundarias: any[];
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    informacionAdicioanl: any[];
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    fichaproducto: any[];
+
+    // Caracteristicas mescladas - HIDRATANTES CERAVE
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    beneficios: any[];
+
+    @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: '' })
+    ingredientes: string;
+
+    @ApiProperty()
+    @Column({ type: 'jsonb', nullable: true, default: [] })
+    modoUso: any[];
+
+    @ApiProperty()
+    @Column({ type: 'text', nullable: false, default: '' })
+    tipoAplicacion: string;
+
+
 
     // --- ESTABLECER CONEXION CON LAS SUBCATEGORIAS QUE PUEDE TENER CADA CATEGORIA
     @ApiProperty({ type: () => SA_SubCategoriaMast, isArray: true })
