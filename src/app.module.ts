@@ -7,6 +7,9 @@ import { ApiSeguridadCoreModule } from './api-seguridad-core/api-seguridad-core.
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { TenantModule } from './shared/global-components/tenant.module';
+import { SA_CaracteristicaMast } from './api-administracion-core/GE_Inventario/entities/SA_CaracteristicaMast.entity';
+import { SA_RelacionCaracteristicaMast } from './api-administracion-core/GE_Inventario/entities/SA_RelacionCaracteristicaMast';
+import { SA_RelacionItemMast } from './api-administracion-core/GE_Inventario/entities/SA_RelacionItemMast.entity';
 
 @Module({
   imports: [
@@ -19,7 +22,7 @@ import { TenantModule } from './shared/global-components/tenant.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASWOORD, 
       database: process.env.DB_DATABASE,
-      entities: ['dist/**/*.entity{.ts,.js}'],
+      entities: ['dist/**/*.entity{.ts,.js}', SA_CaracteristicaMast, SA_RelacionCaracteristicaMast, SA_RelacionItemMast],
       synchronize: true,
       logger: 'advanced-console',
       logging: true,

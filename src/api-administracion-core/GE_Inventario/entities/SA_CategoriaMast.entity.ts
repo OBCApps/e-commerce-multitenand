@@ -3,6 +3,8 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { SA_LineaMast } from "./SA_LineaMast.entity";
 import { SA_SubCategoriaMast } from "./SA_SubCategoriaMast.entity";
 import { SA_ItemMast } from "./SA_ItemMast.entity";
+import { SA_RelacionItemMast } from "./SA_RelacionItemMast.entity";
+import { SA_RelacionCaracteristicaMast } from "./SA_RelacionCaracteristicaMast";
 
 @Entity('SA_CategoriaMast')
 export class SA_CategoriaMast {
@@ -30,9 +32,14 @@ export class SA_CategoriaMast {
     subcategorias: SA_SubCategoriaMast[];
 
 
-    // ---- ESTABLECER DIRECTAMENTE CON ITEMS
-    @ApiProperty({ type: () => SA_ItemMast, isArray: true })
-    @OneToMany(() => SA_ItemMast, (connect) => connect.linea)
-    items: SA_ItemMast[];
+    // ---- ESTABLECER DIRECTAMENTE CON RELACION-ITEMS
+    @ApiProperty({ type: () => SA_RelacionItemMast, isArray: true })
+    @OneToMany(() => SA_RelacionItemMast, (connect) => connect.categoria)
+    relacionitems: SA_RelacionItemMast[];
 
+
+    // --- ESTABLECER CONEXION CON LAS CARACTERISTICAS QUE PUEDE TENER CADA LINEA
+    @ApiProperty({ type: () => SA_RelacionCaracteristicaMast, isArray: true })
+    @OneToMany(() => SA_RelacionCaracteristicaMast, (connect) => connect.categoria)
+    relacioncaracteristica: SA_RelacionCaracteristicaMast[];
 }

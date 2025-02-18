@@ -3,12 +3,16 @@ import { SA_ClienteMast } from 'src/api-administracion-core/SA_ClienteMast/entit
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { SA_CategoriaMast } from './SA_CategoriaMast.entity';
 import { SA_ItemMast } from './SA_ItemMast.entity';
+import { SA_RelacionItemMast } from './SA_RelacionItemMast.entity';
+import { SA_CaracteristicaMast } from './SA_CaracteristicaMast.entity';
+import { SA_RelacionCaracteristicaMast } from './SA_RelacionCaracteristicaMast';
 
 @Entity('SA_LineaMast')
 export class SA_LineaMast {
     @ApiProperty()
     @PrimaryGeneratedColumn('uuid')
     id_linea: string;
+
 
     // --- ESTABLECER CONEXION CON EL CLIENTE -> LINEA (UNO A MUCHOS)
     @ApiProperty()
@@ -19,9 +23,11 @@ export class SA_LineaMast {
     @Column({ type: 'uuid', nullable: false })
     id_cliente: string;
 
+
     @ApiProperty()
     @Column({ type: 'text', nullable: false })
     nombre: string;
+
 
     // --- ESTABLECER CONEXION CON LAS CATEGORIAS QUE PUEDE TENER CADA LINEA
     @ApiProperty({ type: () => SA_CategoriaMast, isArray: true })
@@ -29,11 +35,15 @@ export class SA_LineaMast {
     categorias: SA_CategoriaMast[];
 
 
+    // ---- ESTABLECER DIRECTAMENTE CON RELACION-ITEMS
+    @ApiProperty({ type: () => SA_RelacionItemMast, isArray: true })
+    @OneToMany(() => SA_RelacionItemMast, (connect) => connect.linea)
+    relacionitems: SA_RelacionItemMast[];
 
-    // ---- ESTABLECER DIRECTAMENTE CON ITEMS
-    @ApiProperty({ type: () => SA_ItemMast, isArray: true })
-    @OneToMany(() => SA_ItemMast, (connect) => connect.linea)
-    items: SA_ItemMast[];
 
+    // --- ESTABLECER CONEXION CON LAS CARACTERISTICAS QUE PUEDE TENER CADA LINEA
+    @ApiProperty({ type: () => SA_RelacionCaracteristicaMast, isArray: true })
+    @OneToMany(() => SA_RelacionCaracteristicaMast, (connect) => connect.linea)
+    relacioncaracteristica: SA_RelacionCaracteristicaMast[];
 
 }
